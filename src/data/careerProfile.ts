@@ -6,6 +6,11 @@ export type Milestone = {
   impact: string;
 };
 
+export type Education = {
+  school: string;
+  detail: string;
+};
+
 export const milestones: Milestone[] = [
   {
     role: "Owner & Operations",
@@ -65,20 +70,37 @@ export const milestones: Milestone[] = [
   },
 ];
 
-export const careerSummary = `Jessica Clarke Dennis is an operations and administration professional with 15+ years of combined experience across healthcare offices, medical billing, and small business ownership. Most recently she built and ran Crow & Lilac, a botanicals business handling inventory, fulfillment, bookkeeping, vendor relationships, and customer care. Prior years in wellness clinics as office manager and billing coordinator included verifying insurance, submitting claims, managing HIPAA-compliant patient records, and keeping the front desk smooth. She also ran a freelance medical billing practice supporting multiple acupuncturists and chiropractors. She excels at making complicated processes calm and organized and being the reliable link between customers, vendors, and internal teams (SOPs, email, closed loops). Seeking next roles in operations, office management, medical billing, customer success, or anywhere administrative excellence and problem-solving matter. Open to remote, hybrid, and San Diego-area opportunities.`;
+export const careerSummary = [
+  "Jessica Clarke Dennis is an operations and administration professional with 15+ years of combined experience across healthcare offices, medical billing, and small business ownership.",
+  "Most recently she built and ran Crow & Lilac, a botanicals business handling inventory, fulfillment, bookkeeping, vendor relationships, and customer care.",
+  "Prior years in wellness clinics as office manager and billing coordinator included verifying insurance, submitting claims, managing HIPAA-compliant patient records, and keeping the front desk smooth.",
+  "She also ran a freelance medical billing practice supporting multiple acupuncturists and chiropractors.",
+  "She excels at making complicated processes calm and organized and being the reliable link between customers, vendors, and internal teams (SOPs, email, closed loops).",
+  "Seeking next roles in operations, office management, medical billing, customer success, or anywhere administrative excellence and problem-solving matter.",
+  "Open to remote, hybrid, and San Diego-area opportunities.",
+].join(" ");
 
+// Concise list used in the Digital Twin knowledge base.
 export const topSkills = [
-  "One-on-one Instruction",
-  "Applied Behavior Analysis",
-  "Child Development",
-  "Operations & administration",
-  "Medical billing & revenue cycle",
-  "HIPAA-aware records & coordination",
-  "SOPs, inventory, fulfillment",
-  "Customer success & vendor relations",
+  "Office & operations management",
+  "Scheduling, intake, and front-desk coordination",
+  "SOPs, documentation standards, and workflow improvement",
+  "Medical billing and revenue-cycle administration",
+  "HIPAA-minded records and stakeholder liaison work",
+  "Inventory, vendor relations, and small-business back office",
+  "Clear customer and internal communication (closed-loop follow-through)",
 ];
 
-export const education = [
+// Longer visitor-facing strengths used by the homepage.
+export const officeStrengths = [
+  "Office management: scheduling, intake, front-desk flow, and day-to-day clinic or business operations",
+  "Process ownership: SOPs, documentation standards, and workflows that keep teams aligned and errors low",
+  "Revenue-cycle administration: eligibility, claims, payment posting, AR follow-up, and clean handoffs to providers",
+  "HIPAA-minded records, organized filing, and careful communication between patients, vendors, and internal teams",
+  "Small-business operations: inventory and fulfillment, vendor coordination, invoicing, and bookkeeping discipline",
+];
+
+export const education: Education[] = [
   {
     school: "Binghamton University",
     detail: "Bachelor of Science (BS), Psychology — September 2005 - June 2007",
@@ -97,6 +119,7 @@ export const contact = {
 
 export function buildDigitalTwinKnowledgeBase(): string {
   const experience = milestones
+    .filter((m) => m.role && m.company && m.period && m.impact)
     .map(
       (m) =>
         `- ${m.role} at ${m.company} (${m.period}, ${m.location}): ${m.impact}`,
@@ -108,6 +131,7 @@ export function buildDigitalTwinKnowledgeBase(): string {
     .join("\n");
 
   const skills = topSkills.map((s) => `- ${s}`).join("\n");
+  const strengths = officeStrengths.map((s) => `- ${s}`).join("\n");
 
   return `
 Name: Jessica Clarke Dennis
@@ -118,6 +142,9 @@ ${careerSummary}
 
 Top skills:
 ${skills}
+
+Office management and operations strengths:
+${strengths}
 
 Experience:
 ${experience}
